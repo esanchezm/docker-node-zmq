@@ -1,6 +1,6 @@
 FROM buildpack-deps:trusty
 
-ENV NODE_VERSION 0.12.7
+ENV NODE_VERSION 0.10.40
 ENV NPM_VERSION 2.14.1
 ENV ZMQ_VERSION 4.0.4
 
@@ -14,7 +14,7 @@ RUN set -ex \
     done
 
 
-ONBUILD RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz" \
+RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz" \
     && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
     && gpg --verify SHASUMS256.txt.asc \
     && grep " node-v$NODE_VERSION-linux-x64.tar.gz\$" SHASUMS256.txt.asc | sha256sum -c - \
@@ -26,7 +26,7 @@ ONBUILD RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSIO
 
 
 # time to install zmq
-ONBUILD RUN curl -SLO "http://download.zeromq.org/zeromq-$ZMQ_VERSION.tar.gz" \
+RUN curl -SLO "http://download.zeromq.org/zeromq-$ZMQ_VERSION.tar.gz" \
     && tar xvf zeromq-$ZMQ_VERSION.tar.gz \
     && cd zeromq-$ZMQ_VERSION \
     && ./configure \
@@ -35,7 +35,7 @@ ONBUILD RUN curl -SLO "http://download.zeromq.org/zeromq-$ZMQ_VERSION.tar.gz" \
     && cd .. \
     && rm -r zeromq-$ZMQ_VERSION \
     && rm zeromq-$ZMQ_VERSION.tar.gz
-ONBUILD RUN ldconfig
+RUN ldconfig
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
