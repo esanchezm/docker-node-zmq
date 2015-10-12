@@ -2,7 +2,7 @@ FROM buildpack-deps:trusty
 
 ENV NODE_VERSION 0.10.40
 ENV NPM_VERSION 2.14.1
-ENV ZMQ_VERSION 4.0.4
+ENV ZMQ_VERSION 4.1.3
 
 # based upon https://raw.githubusercontent.com/nodejs/docker-node/d798690bdae91174715ac083e31198674f044b68/0.10/Dockerfile
 RUN set -ex \
